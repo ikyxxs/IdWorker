@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ikyxxs.idworker.mapper.IdWorkerMapper">
+
+    <insert id="insert">
+        insert into tb_idworker (biz_type, counter, gmt_create, gmt_modified) values (#{bizType}, #{init}, now(), now())
+    </insert>
+
+    <update id="incrBy">
+        update tb_idworker set counter = (counter + #{num}), gmt_modified = now() where biz_type = #{bizType}
+    </update>
+
+    <select id="selectForUpdate" parameterType="String" resultType="Long">
+        select counter from tb_idworker where biz_type = #{bizType} for update
+    </select>
+
+</mapper>
